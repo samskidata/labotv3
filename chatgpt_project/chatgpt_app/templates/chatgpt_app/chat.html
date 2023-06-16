@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatGPT</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to ChatGPT</h1>
+        <form id="chat-form" method="post">
+            {% csrf_token %}
+            <textarea id="message-input" name="message"></textarea>
+            <button type="submit">Send</button>
+        </form>
+        <div id="messages">
+            <!-- Chat messages will go here -->
+        </div>
+    </div>
+    <script>
+    $(document).ready(function() {
+        $('#chat-form').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url : "", // the endpoint, common in Django to leave empty for current view
+                type : "POST", // http method
+                data : { message : $('#message-input').val(), 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+
+                // handle a successful response
+                success : function(json) {
+                    $('#message-input').val(''); // remove the value from the input
+                    console.log(json); // log the returned json to the console
+                    $("#messages").append('<p>'+json.message+'</p>'); // append the chat message to the messages div
+                },
+
+                // handle a non-successful response
+                error : function(xhr,errmsg,err) {
+                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
+

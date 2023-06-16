@@ -1,0 +1,20 @@
+/* chatgpt_app/static/css/styles.css */
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#messages {
+    height: 500px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
